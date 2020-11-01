@@ -6,3 +6,5 @@ authors = ["VS Code <vscode@microsoft.com>"]
 [lib]
 path ="./src/lib/lib.rs"
 
+[dependencies]
+ferris-says = "0.2"
