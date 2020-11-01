@@ -8,3 +8,4 @@ path ="./src/lib/lib.rs"
 
 [dependencies]
 ferris-says = "0.2"
+raster = "0.2.0"

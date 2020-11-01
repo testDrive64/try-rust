@@ -3,10 +3,12 @@
  * Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
  *-------------------------------------------------------------------------------------------------------------*/
  extern crate ferris_says;
+ extern crate raster;
  use ferris_says::say;
  use std::io::{stdout, BufWriter};
  //use std::fmt;
 use std::fmt::{self, Formatter, Display};
+//use raster::Color;
 
 
 struct City {
@@ -18,7 +20,7 @@ struct City {
 impl Display for City {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         let lat_c = if self.lat >= 0.0 { 'N' } else { 'S' };
-        let lon_c = if self.lon >= 0.0 { 'E' } else { 'w' };
+        let lon_c = if self.lon >= 0.0 { 'E' } else { 'W' };
 
         write!(f, "{}: {:.3}°{} {:.3}°{}", self.name, self.lat.abs(), lat_c, self.lon.abs(), lon_c)
     }
@@ -30,6 +32,14 @@ struct Color {
     green: u8,
     blue: u8,
 }
+
+impl fmt::Display for Color {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        print!("RGB ({}, {}, {}) ", self.red, self.green, self.blue);
+        write!(f, "0x{:02X?}{:02X?}{:02X?}", self.red, self.green, self.blue)
+    }
+}
+
  struct List(Vec<i32>);
 
  impl fmt::Display for List {
@@ -116,6 +126,23 @@ fn main() {
         Color { red: 0, green: 3, blue: 254 },
         Color { red: 0, green: 0, blue: 0 },
     ].iter() {
-        println!("{:?}", *color);
+        println!("{}", *color);
     }
+
+    println!("1 +2 = {}", 1u32 + 2);
+
+    println!("1 - 2 = {}", 1i32 - 2);
+
+    println!("true AND false is {}", true && false);
+    println!("true OR false is {}", true || false);
+    println!("Not true is {}", !true);
+
+    println!("0011 AND 0101 is {:04b}", 0b0011u32 & 0b0101);
+    println!("0011 OR 0101 is {:04b}", 0b0011u32 | 0b0101);
+    println!("0011 XOR 0101 is {:04b}", 0b0011u32 ^ 0b0101);
+    println!("1 << 5 is {}", 1u32 << 5);
+    println!("0x80 >> 2 is 0x{:x}", 0x80u32 >> 2);
+
+    // Bei großen Zahlen Unterstrich, zur besseren Lesbarkeit benutzen
+    println!("One million is written as {}", 1_000_000u32);
 }
